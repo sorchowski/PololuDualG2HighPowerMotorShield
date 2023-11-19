@@ -9,8 +9,8 @@
  *  https://www.pololu.com/docs/0J72/4.b
  * 
  * Without consideration to the current sensing capabilities of this family of
- * motor drivers, this library can interface with any shield. For testing purposes,
- * we'll interface to 18v18.
+ * motor drivers, this library can interface with any PololuDualG2HighPowerMotorShield
+ * Arduino shield. For testing purposes, we'll interface to 18v18.
  * 
  * Expected logic connections:
  * 
@@ -22,7 +22,12 @@
  * Due pwm pins:
  *   2-13, 1000 Hz
  *   use analogWriteResolution to set higher resolution. i.e. "12" for 12-bit -> 4096 bit resolution 
- *   pins DAC0 and DAC1 are "true" analog. 
+ *   pins DAC0 and DAC1 are "true" analog.
+ * 
+ * You must invoke "init()" within setup() before using the setSpeed() methods!!!
+ * 
+ * We could break these classes out into a generic motor driver as many implementations
+ * expect only direction and pwm values.
 */
 
 #define PIN_NOT_CONNECTED -1
@@ -30,6 +35,7 @@
 #define DEFAULT_MIN_SPEED_VALUE -255
 #define DEFAULT_MAX_12_BIT_SPEED_VALUE 4095
 #define DEFAULT_MIN_12_BIT_SPEED_VALUE -4095
+#define MAX_ANALOG_WRITE_RESOLUTION 12
 
 class PololuDualG2HighPowerMotorShield {
 
@@ -62,6 +68,8 @@ class PololuDualG2HighPowerMotorShield {
 
         void setMaxPwmOutput(int maxOutput);
 
+        void init();
+
         // TODO: Add support for the following
         // MxCS (output from shield): current sense
         // MxFLT (output from shield): fault inidication
@@ -72,8 +80,6 @@ class PololuDualG2HighPowerMotorShield {
         // MxVREF 
 
     private:
-
-        void init();
 
         int m_m1dir;
         int m_m1pwm;

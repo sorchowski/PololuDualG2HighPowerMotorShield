@@ -7,7 +7,7 @@
 #define MOTOR2_DIR_PIN 6
 #define MOTOR2_PWM_PIN 7
 
-PololuDualG2HighPowerMotorShield motorController(MOTOR1_DIR_PIN, MOTOR1_PWM_PIN, MOTOR2_DIR_PIN, MOTOR2_PWM_PIN);
+PololuDualG2HighPowerMotorShield motorController(MOTOR1_DIR_PIN, MOTOR1_PWM_PIN, MOTOR2_DIR_PIN, MOTOR2_PWM_PIN, 12);
 
 void setup() {
 
